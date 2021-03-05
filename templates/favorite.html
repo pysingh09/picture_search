@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container favi_cont">
+    <div class="row">
+        {% for object in object_list %}
+        <div class="column img_wrp">
+            <img alt='Cinque Terre' class='img-thumbnail' onclick="myFunction(this);" src="{{object.original_url}}"
+                 style="width:30%, height:30%">
+        </div>
+        {% endfor %}
+    </div>
+    <nav aria-label="Page navigation example">
+        {% if is_paginated %}
+        <ul class="pagination justify-content-center">
+            {% if page_obj.has_previous %}
+            <li class="page-item"><a class="page-link" href="?page={{ page_obj.previous_page_number }}">Previous</a>
+            </li>
+            {% endif %}
+            {% for i in page_obj.paginator.page_range %}
+            {% if page_obj.number == i %}
+            <li class="active page-item"><a class="page-link">{{ i }} <span class="sr-only">(current)</span></a></li>
+            {% else %}
+            <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+            {% endif %}
+            {% endfor %}
+            {% if page_obj.has_next %}
+            <li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}">Next</a></li>
+            {% endif %}
+        </ul>
+        {% endif %}
+    </nav>
+    <div class="container">
+        <span class="closebtn" onclick="this.parentElement.style.display='none'">&times;</span>
+        <img id="expandedImg" style="width:100%">
+        <div id="imgtext"></div>
+    </div>
+    {% endblock %}
+</div>

@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<div class="container-fluid filter-ui">
+    <form action="#" id="search_picture" method="POST">
+        {% csrf_token %}
+
+        <div class=" row">
+            <input id="page_count" type="hidden" value="1">
+            <div class="form-group col-sm-3">
+                <label class="" for="lat">latitude</label>
+                <input class="form-control" id="lat" placeholder="Enter latitude" step=any
+                       type="number"
+                       value="">
+            </div>
+            <div class="form-group col-sm-3">
+                <label class="" for="log">longitude</label>
+                <input class="form-control" id="log" placeholder="Enter longitude" step=any
+                       type="number"
+                       value="">
+            </div>
+            <div class="form-group col-sm-1 d-flex justify-content-center align-items-center">OR</div>
+            <div class="form-group col-sm-4">
+                <label class="" for="location_drop_down">Choose
+                    Location:</label>
+
+                <select class="form-control" id="location_drop_down" name="locations">
+                    <option value="">Select Location</option>
+                    {% for location in object_list %}
+                    <option value={{location.latitude}},{{location.longitude}}>{{ location.name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="form-group col-sm-1 d-flex justify-content-end align-items-end">
+                <button class="btn btn-outline-success my-2 my-sm-0 btn-block" type="submit">Submit</button>
+            </div>
+        </div>
+    </form>
+    <br>
+    <div class="container" id="search_result">
+    </div>
+</div>
+{% endblock %}
